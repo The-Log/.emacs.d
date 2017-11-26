@@ -1,0 +1,64 @@
+function Gerner(ratio, imageurl){
+  this.ratio = ratio;
+  this.imageurl = imageurl;
+}
+
+ var getGerner = {
+  init: function(myGerner){
+    this.myGerner = myGerner;
+  },
+
+  horizontal: function(){
+    return this.myGerner.filter(function(myGerner){
+      return myGerner.ratio === "horizontal";
+    });
+  },
+
+  vertical: function(){
+    return this.myGerner.filter(function(myGerner){
+      return myGerner.ratio === "vertical";
+    });
+  },
+
+  square: function (){
+    return this.myGerner.filter(function(myGerner){
+      return myGerner.ratio === "square";
+    });
+  }
+ };
+
+ function Randomize(images){
+    return Math.floor(Math.random() * images.length)
+ }
+
+var myGerner = [
+  new Gerner("horizontal", "http://i.imgur.com/7SdiMmW.png"),
+  new Gerner("square", "http://i.imgur.com/KvBjvvo.png"),
+  new Gerner("vertical", "http://i.imgur.com/aVObc5J.jpg"),
+]
+
+function imageRatio(image) {
+  var proportion = image.height/image.width;
+
+  if(proportion > 1) {
+    return "vertical";
+  } else if(proportion === 1) {
+    return "square";
+  } else if(proportion < 1) {
+    return "horizontal";
+  }
+}
+
+(function (document) {
+
+  getGerner.init(myGerner);
+  var images = document.getElementsByTagName('img'), length = images.length
+
+  for (var i = 0; i < length; i++) {
+    var ratio = imageRatio(images[i]);
+    var number = Randomize(getGerner[ratio]());
+    var img = getGerner[ratio]()[number];
+    images[i].src = img.imageurl
+  }
+
+})(document);
