@@ -141,12 +141,14 @@
   :config
   (global-flycheck-mode)
   )
-
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
 (use-package ivy
   :diminish ivy-mode
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers)
+  ;; :config
+   ;; (ivy-mode 1)
+   ;; (setq ivy-use-virtual-buffers)
   :bind
   (("C-s" . swiper)
    ("C-c C-r" . ivy-resume)
@@ -258,14 +260,6 @@
   (venv-initialize-interactive-shells) ;; if you want interactive shell support
   (setq venv-location "~/Development/Virtual-Environments/")
 )
-
-(use-package latex-mode
-  :config
-  (setq-default TeX-master nil)
-  (setq TeX-parse-self t)
-  (setq TeX-auto-save t)
-  )
-
 
 ;;;; Custom functions
 

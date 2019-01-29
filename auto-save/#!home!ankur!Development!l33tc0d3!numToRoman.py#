@@ -1,0 +1,24 @@
+class Solution(object):
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        roman = ''
+
+        if num >= 10:
+            if num % 100 < 40:
+                roman += 'X' * num
+            elif num % 100 < 50:
+                roman += 'XL'
+            else:
+                roman += 'L' + 'X' * (num - 50)
+
+        if num % 10 < 4:
+            roman += 'I' * num
+        elif num % 10 < 5:
+            roman += 'IV'
+        else:
+            roman += 'V' + 'I' * (num - 5)
+        return roman
+        

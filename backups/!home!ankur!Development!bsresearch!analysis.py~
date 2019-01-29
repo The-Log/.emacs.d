@@ -1,0 +1,43 @@
+import csv
+
+counties = set()
+with open("counties.txt") as file: 
+        reader = csv.reader(file, delimiter=' ')
+        for row in reader:
+            counties.add(row[0] + " County")
+            print(row[0] + " County")    
+
+# 2008 - 2017
+def county_year_population(file_name='censusdata/censusdata-12-2017.csv'):
+    l = []
+    county_pop = dict()
+    county_name = dict()
+    with open(file_name) as csvfile:
+        read_csv = csv.reader(csvfile, delimiter=',')
+        for row in read_csv:
+            try:
+                key = "c"+str(row[2])+ "yr" + str(row[5])
+                #print(key)
+                val = row[7]
+                #print(val)
+                if row[2] not in county_name:
+                    county_name[row[2]] = row[4]
+                if key in county_pop:
+                    county_pop[key] += float(val)
+                else:
+                    county_pop[key] = float(val)
+            except ValueError:
+                print("Ignoring: " + str(row))
+
+        print('County \t Year \t Population \t Rate of Change from Previous')
+        for key in county_pop:
+            year = int(2007 + float(key[key.index("r") + 1 :]))
+            s = '--'
+            if year > 2008:
+                prevkey = key[:key.index("r") + 1] + str(year - 2008)
+                s = str ((county_pop[key] - county_pop[prevkey]) / 2.0)
+            cn = county_name[key[1:key.index('y')]]            
+            if cn in counties:
+                print(cn +" \t "+ str(year) +" \t "+ str(county_pop[key]) + '\t' + s)
+
+county_year_population()

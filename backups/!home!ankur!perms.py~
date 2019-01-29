@@ -1,0 +1,6 @@
+def list_perms(chars):
+    chars = set(chars)
+    perms = set()
+
+    def recur(chars):
+        

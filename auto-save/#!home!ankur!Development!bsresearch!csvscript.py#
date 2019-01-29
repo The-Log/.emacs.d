@@ -1,0 +1,15 @@
+import csv
+
+def mean_median(file_name='example.csv'):
+    l = []
+    with open(file_name) as csvfile:
+        read_csv = csv.reader(csvfile, delimiter=',')
+        for row in read_csv:
+            try: 
+                l.append(float(row[2]))
+            except ValueError:
+                print("Ignoring: " + str(row))
+    return sum(l)/len(l) , sorted(l)[len(l)//2]
+            
+if __name__ == '__main__':
+    print(mean_median())
